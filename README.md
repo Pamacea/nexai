@@ -1,5 +1,11 @@
 # NEXAI - Collection Corrompue
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/v/release/Pamacea/nexai)](https://github.com/Pamacea/nexai/releases/latest)
+[![CI](https://github.com/Pamacea/nexai/actions/workflows/ci.yml/badge.svg)](https://github.com/Pamacea/nexai/actions)
+
+
+
 > Une zone corrompue. Un directory horizontal avec glitch.
 
 Une collection expérimentale de sites web avec esthétique glitch et corruption numérique. Navigation horizontale immersive avec performances optimisées et monitoring Web Vitals.

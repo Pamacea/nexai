@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* BASE */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #e8e8e8;
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+}
+
+/* GLITCH TEXT - needs pseudo-elements */
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+.glitch-text {
+  animation: glitch 0.3s infinite;
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-text::before {
+  color: #ff0040;
+  animation: glitch 0.3s infinite reverse;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  transform: translate(-2px, 0);
+}
+
+.glitch-text::after {
+  color: #00ff41;
+  animation: glitch 0.3s infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  transform: translate(2px, 0);
+}
+
+/* HIDE SCROLLBAR - webkit only */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* CORRUPTED CARD - needs pseudo-element */
+
+@keyframes corrupted-card-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.corrupted-card {
+  position: relative;
+}
+
+.corrupted-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #ff0040, #0a0a0a, #ff0040);
+  background-size: 200% 200%;
+  z-index: -1;
+  opacity: 0.3;
+  animation: corrupted-card-gradient 3s infinite;
+}
+
+/* CORRUPTED BUTTON - needs pseudo-element */
+
+.corrupted-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.corrupted-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.corrupted-btn:hover::before {
+  left: 100%;
+}
+
+/* VOID BACKGROUND - needs pseudo-element */
+
+.void-bg {
+  background: #0a0a0a;
+  position: relative;
+}
+
+.void-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 0, 64, 0.03) 2px, rgba(255, 0, 64, 0.03) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 0, 64, 0.03) 2px, rgba(255, 0, 64, 0.03) 4px);
+  pointer-events: none;
+}
+
+/* FADE IN ANIMATION */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SCRAMBLE STAT ANIMATION - GPU-accelerated, no JS state updates */
+
+@keyframes scrambleShift {
+  0%, 100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    opacity: 0.8;
+    transform: translate3d(-1px, 1px, 0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate3d(1px, -1px, 0);
+  }
+  75% {
+    opacity: 0.9;
+    transform: translate3d(-1px, -1px, 0);
+  }
+}
+
+.scramble-stat {
+  will-change: transform, opacity;
+  animation: scrambleShift 0.15s infinite;
+  display: inline-block;
+}
+
+/* GPU acceleration for corrupted cards */
+
+.corrupted-card,
+.corrupted-btn {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* FOCUS */
+
+*:focus-visible {
+  outline: 2px solid #ff0040;
+  outline-offset: 2px;
+}

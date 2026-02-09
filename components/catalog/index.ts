@@ -1,0 +1,1 @@
+export { CatalogSlide } from './CatalogSlide';
